@@ -17,16 +17,10 @@ public class BlockyBeavers implements ModInitializer {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	public static final EntityType<BeaverEntity> BEAVER = Registry.register(
-			Registries.ENTITY_TYPE,
-			Identifier.of(MOD_ID, "beaver"),
-			EntityType.Builder.create(BeaverEntity::new, SpawnGroup.CREATURE).dimensions(0.75f, 0.75f).build("beaver")
-	);
-
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Blocky Beavers loading...");
-		FabricDefaultAttributeRegistry.register(BEAVER, BeaverEntity.createBeaverAttributes());
+		BlockyBeaversEntities.initialize();
 		LOGGER.info("Blocky Beavers loaded");
 	}
 }

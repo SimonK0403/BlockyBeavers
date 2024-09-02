@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.simonk0403.blockybeavers.entity.BeaverEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.QuadrupedEntityModel;
+import net.minecraft.util.math.MathHelper;
 
 public class BeaverEntityModel extends QuadrupedEntityModel<BeaverEntity> {
 	private final ModelPart rightFrontLeg;
@@ -57,6 +58,12 @@ public class BeaverEntityModel extends QuadrupedEntityModel<BeaverEntity> {
 
 	@Override
 	public void setAngles(BeaverEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-		super.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+		this.head.pitch = headPitch * (float) (Math.PI / 180.0);
+		this.head.yaw = headYaw * (float) (Math.PI / 180.0);
+		this.rightHindLeg.pitch = MathHelper.cos(limbAngle * 0.6662F * 2) * 1.4F * limbDistance;
+		this.leftHindLeg.pitch = MathHelper.cos(limbAngle * 0.6662F * 2 + (float) Math.PI) * 1.4F * limbDistance;
+		this.rightFrontLeg.pitch = MathHelper.cos(limbAngle * 0.6662F * 2) * 1.4F * limbDistance;
+		this.leftFrontLeg.pitch = MathHelper.cos(limbAngle * 0.6662F * 2 + (float) Math.PI) * 1.4F * limbDistance;
+		this.tail.yaw = MathHelper.cos(limbAngle * 0.6662F * 2) * limbDistance;
 	}
 }

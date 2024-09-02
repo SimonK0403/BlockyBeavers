@@ -14,7 +14,7 @@ public class BlockyBeaversClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		EntityModelLayerRegistry.registerModelLayer(MODEL_BEAVER_LAYER, BeaverEntityModel::getTexturedModelData);
-		EntityRendererRegistry.register(BlockyBeavers.BEAVER, (context) ->
+		EntityRendererRegistry.register(BlockyBeaversEntities.BEAVER, (context) ->
 				new BeaverEntityRenderer(context, new BeaverEntityModel(context.getPart(MODEL_BEAVER_LAYER)), 0.5f)
 		);
 	}

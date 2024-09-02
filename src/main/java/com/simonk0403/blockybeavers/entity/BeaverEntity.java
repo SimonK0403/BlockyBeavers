@@ -1,8 +1,6 @@
 package com.simonk0403.blockybeavers.entity;
 
-import com.simonk0403.blockybeavers.BlockyBeavers;
-import net.minecraft.entity.AnimationState;
-import net.minecraft.entity.EntityPose;
+import com.simonk0403.blockybeavers.BlockyBeaversEntities;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -23,9 +21,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class BeaverEntity extends AnimalEntity {
 
-    public final AnimationState walkingAnimation = new AnimationState();
-
-
     public BeaverEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -43,7 +38,7 @@ public class BeaverEntity extends AnimalEntity {
 
     @Override
     public @Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return BlockyBeavers.BEAVER.create(world);
+        return BlockyBeaversEntities.BEAVER.create(world);
     }
 
     @Override
@@ -52,9 +47,10 @@ public class BeaverEntity extends AnimalEntity {
         this.goalSelector.add(1, new EscapeDangerGoal(this, 1.25));
         this.goalSelector.add(2, new AnimalMateGoal(this, 1.15));
         this.goalSelector.add(3, new TemptGoal(this, 1.25, Ingredient.ofItems(Items.CARROT), false));
-        this.goalSelector.add(4, new WanderAroundFarGoal(this, 0.8));
-        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 4f));
-        this.goalSelector.add(6, new LookAroundGoal(this));
+        this.goalSelector.add(4, new FollowParentGoal(this, 1.1));
+        this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
+        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 4f));
+        this.goalSelector.add(7, new LookAroundGoal(this));
     }
 
     @Nullable
