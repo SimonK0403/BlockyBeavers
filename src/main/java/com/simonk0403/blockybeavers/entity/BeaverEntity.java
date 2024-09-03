@@ -16,6 +16,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -63,5 +64,10 @@ public class BeaverEntity extends AnimalEntity {
     @Override
     public SoundEvent getDeathSound() {
         return SoundEvents.ENTITY_RABBIT_DEATH;
+    }
+
+    @Override
+    public Vec3d getLeashOffset() {
+        return new Vec3d(0.0, 0.55F * this.getStandingEyeHeight(), this.getWidth() * 0.4F);
     }
 }
