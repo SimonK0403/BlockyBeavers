@@ -29,7 +29,8 @@ public class BeaverEntity extends AnimalEntity {
     public static DefaultAttributeContainer.Builder createBeaverAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 10)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15f);
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15f)
+                .add(EntityAttributes.GENERIC_WATER_MOVEMENT_EFFICIENCY, 2.5f);
     }
 
     @Override
