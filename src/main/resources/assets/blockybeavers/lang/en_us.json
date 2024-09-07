@@ -1,4 +1,6 @@
 {
   "entity.blockybeavers.beaver": "Beaver",
-  "item.blockybeavers.beaver_spawn_egg": "Beaver Spawn Egg"
+  "item.blockybeavers.beaver_spawn_egg": "Beaver Spawn Egg",
+  "item.blockybeavers.cooked_beaver": "Cooked beaver",
+  "item.blockybeavers.raw_beaver": "Raw beaver"
 }
