@@ -60,10 +60,19 @@ public class BeaverEntityModel extends QuadrupedEntityModel<BeaverEntity> {
 	public void setAngles(BeaverEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
 		this.head.pitch = headPitch * (float) (Math.PI / 180.0);
 		this.head.yaw = headYaw * (float) (Math.PI / 180.0);
-		this.rightHindLeg.pitch = MathHelper.cos(limbAngle * 0.6662F * 2) * 1.4F * limbDistance;
-		this.leftHindLeg.pitch = MathHelper.cos(limbAngle * 0.6662F * 2 + (float) Math.PI) * 1.4F * limbDistance;
-		this.rightFrontLeg.pitch = MathHelper.cos(limbAngle * 0.6662F * 2) * 1.4F * limbDistance;
-		this.leftFrontLeg.pitch = MathHelper.cos(limbAngle * 0.6662F * 2 + (float) Math.PI) * 1.4F * limbDistance;
-		this.tail.yaw = MathHelper.cos(limbAngle * 0.6662F * 2) * limbDistance;
+
+		if(entity.isTouchingWater()){
+			this.rightHindLeg.pitch = MathHelper.cos(limbAngle * 4F) * 1.4F * limbDistance + 3F;
+			this.leftHindLeg.pitch = MathHelper.cos(limbAngle * 4F + (float) Math.PI) * 1.4F * limbDistance + 3F;
+			this.rightFrontLeg.pitch = MathHelper.cos(limbAngle * 4F) * 1.4F * limbDistance - 1.5F;
+			this.leftFrontLeg.pitch = MathHelper.cos(limbAngle * 4F + (float) Math.PI) * 1.4F * limbDistance - 1.5F;
+			this.tail.pitch = MathHelper.cos(limbAngle * 2F) * limbDistance;
+		} else {
+			this.rightHindLeg.pitch = MathHelper.cos(limbAngle * 1.5F) * 1.4F * limbDistance;
+			this.leftHindLeg.pitch = MathHelper.cos(limbAngle * 1.5F + (float) Math.PI) * 1.4F * limbDistance;
+			this.rightFrontLeg.pitch = MathHelper.cos(limbAngle * 1.5F) * 1.4F * limbDistance;
+			this.leftFrontLeg.pitch = MathHelper.cos(limbAngle * 1.5F + (float) Math.PI) * 1.4F * limbDistance;
+			this.tail.yaw = MathHelper.cos(limbAngle * 1.5F) * limbDistance;
+		}
 	}
 }
