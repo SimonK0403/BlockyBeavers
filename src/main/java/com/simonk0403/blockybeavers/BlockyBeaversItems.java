@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
+import net.minecraft.item.Items;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -25,6 +26,11 @@ public class BlockyBeaversItems {
             "cooked_beaver"
     );
 
+    public static final Item BEAVER_FUR = register(
+            new Item(new Item.Settings()),
+            "beaver_fur"
+    );
+
     public static Item register(Item item, String id) {
         Identifier itemId = Identifier.of(BlockyBeavers.MOD_ID, id);
 
@@ -33,7 +39,7 @@ public class BlockyBeaversItems {
 
     public static void initialize() {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register((itemGroup) -> itemGroup.add(BEAVER_SPAWN_EGG));
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register((itemGroup) -> itemGroup.add(RAW_BEAVER));
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register((itemGroup) -> itemGroup.add(COOKED_BEAVER));
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register((itemGroup) -> itemGroup.addAfter(Items.COOKED_RABBIT, RAW_BEAVER, COOKED_BEAVER));
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((itemGroup) -> itemGroup.addAfter(Items.RABBIT_HIDE, BEAVER_FUR));
     }
 }

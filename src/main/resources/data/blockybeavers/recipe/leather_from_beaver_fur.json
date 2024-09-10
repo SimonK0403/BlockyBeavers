@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "blockybeavers:beaver_fur"
+    },
+    {
+      "item": "blockybeavers:beaver_fur"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:leather"
+  }
+}
