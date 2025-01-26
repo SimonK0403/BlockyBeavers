@@ -15,6 +15,8 @@ import static com.simonk0403.blockybeavers.BlockyBeavers.MOD_ID;
 
 @SuppressWarnings("ConstantConditions")
 public class BlockyBeaversEntities {
+    private BlockyBeaversEntities() {}
+
     public static final String BEAVER_ID = "beaver";
 
     public static final EntityType<BeaverEntity> BEAVER = Registry.register(

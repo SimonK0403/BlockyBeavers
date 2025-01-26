@@ -11,6 +11,8 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class BlockyBeaversItems {
+    private BlockyBeaversItems() {}
+
     public static final Item BEAVER_SPAWN_EGG = register(
             new SpawnEggItem(BlockyBeaversEntities.BEAVER, 0x502c1a, 0x141414, new Item.Settings()),
             "beaver_spawn_egg"
@@ -38,8 +40,8 @@ public class BlockyBeaversItems {
     }
 
     public static void initialize() {
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register((itemGroup) -> itemGroup.add(BEAVER_SPAWN_EGG));
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register((itemGroup) -> itemGroup.addAfter(Items.COOKED_RABBIT, RAW_BEAVER, COOKED_BEAVER));
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((itemGroup) -> itemGroup.addAfter(Items.RABBIT_HIDE, BEAVER_FUR));
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(itemGroup -> itemGroup.add(BEAVER_SPAWN_EGG));
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(itemGroup -> itemGroup.addAfter(Items.COOKED_RABBIT, RAW_BEAVER, COOKED_BEAVER));
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(itemGroup -> itemGroup.addAfter(Items.RABBIT_HIDE, BEAVER_FUR));
     }
 }
