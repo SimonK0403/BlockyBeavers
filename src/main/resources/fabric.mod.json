@@ -8,8 +8,8 @@
 		"SimonK0403"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://modrinth.com/project/blockybeavers",
+		"sources": "https://github.com/SimonK0403/BlockyBeavers"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/blockybeavers/icon.png",

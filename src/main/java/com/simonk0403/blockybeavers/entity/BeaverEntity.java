@@ -35,7 +35,7 @@ public class BeaverEntity extends AnimalEntity {
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return stack.isOf(Items.CARROT);
+        return stack.isOf(Items.CARROT) || stack.isOf(Items.STICK);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class BeaverEntity extends AnimalEntity {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new EscapeDangerGoal(this, 1.25));
         this.goalSelector.add(2, new AnimalMateGoal(this, 1.15));
-        this.goalSelector.add(3, new TemptGoal(this, 1.25, Ingredient.ofItems(Items.CARROT), false));
+        this.goalSelector.add(3, new TemptGoal(this, 1.25, Ingredient.ofItems(Items.CARROT, Items.STICK), false));
         this.goalSelector.add(4, new FollowParentGoal(this, 1.1));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 4f));

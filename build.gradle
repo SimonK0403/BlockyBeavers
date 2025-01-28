@@ -69,6 +69,10 @@ jar {
 	}
 }
 
+remapJar {
+	archiveFileName = "${archives_base_name}-fabric-${minecraft_version}-${mod_version}.jar"
+}
+
 // configure the maven publication
 publishing {
 	publications {
