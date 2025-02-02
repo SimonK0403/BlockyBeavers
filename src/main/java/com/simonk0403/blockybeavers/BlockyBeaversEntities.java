@@ -8,6 +8,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.BiomeKeys;
 
@@ -22,8 +24,12 @@ public class BlockyBeaversEntities {
     public static final EntityType<BeaverEntity> BEAVER = Registry.register(
             Registries.ENTITY_TYPE,
             Identifier.of(MOD_ID, BEAVER_ID),
-            EntityType.Builder.create(BeaverEntity::new, SpawnGroup.CREATURE).dimensions(0.75f, 0.75f).build()
+            EntityType.Builder.create(BeaverEntity::new, SpawnGroup.CREATURE).dimensions(0.75f, 0.75f).build(keyOf(BEAVER_ID))
     );
+
+    private static RegistryKey<EntityType<?>> keyOf(String id) {
+        return RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(MOD_ID, id));
+    }
 
     public static void initialize() {
         FabricDefaultAttributeRegistry.register(BEAVER, BeaverEntity.createBeaverAttributes());

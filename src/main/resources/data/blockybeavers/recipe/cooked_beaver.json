@@ -3,9 +3,7 @@
   "category": "food",
   "cookingtime": 200,
   "experience": 0.35,
-  "ingredient": {
-    "item": "blockybeavers:raw_beaver"
-  },
+  "ingredient": "blockybeavers:raw_beaver",
   "result": {
     "id": "blockybeavers:cooked_beaver"
   }

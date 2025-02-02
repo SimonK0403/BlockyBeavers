@@ -11,9 +11,11 @@ public class BlockyBeavers implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		LOGGER.info("Blocky Beavers loading...");
+		LOGGER.info("BlockyBeavers loading...");
+		LOGGER.info("Loading entities...");
 		BlockyBeaversEntities.initialize();
+		LOGGER.info("Loading items...");
 		BlockyBeaversItems.initialize();
-		LOGGER.info("Blocky Beavers loaded");
+		LOGGER.info("BlockyBeavers loaded");
 	}
 }

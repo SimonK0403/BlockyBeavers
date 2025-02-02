@@ -11,12 +11,16 @@ import static com.simonk0403.blockybeavers.BlockyBeaversEntities.BEAVER_ID;
 
 public class BlockyBeaversClient implements ClientModInitializer {
 	public static final EntityModelLayer MODEL_BEAVER_LAYER = new EntityModelLayer(Identifier.of(BlockyBeavers.MOD_ID, BEAVER_ID), "main");
+	public static final EntityModelLayer MODEL_BEAVER_BABY_LAYER = new EntityModelLayer(Identifier.of(BlockyBeavers.MOD_ID, createBabyId(BEAVER_ID)), "main");
+
+	public static String createBabyId(String parentId) {
+		return parentId + "_baby";
+	}
 
 	@Override
 	public void onInitializeClient() {
 		EntityModelLayerRegistry.registerModelLayer(MODEL_BEAVER_LAYER, BeaverEntityModel::getTexturedModelData);
-		EntityRendererRegistry.register(BlockyBeaversEntities.BEAVER, context ->
-				new BeaverEntityRenderer(context, new BeaverEntityModel(context.getPart(MODEL_BEAVER_LAYER)), 0.5f)
-		);
+		EntityModelLayerRegistry.registerModelLayer(MODEL_BEAVER_BABY_LAYER, () -> BeaverEntityModel.getTexturedModelData().transform(BeaverEntityModel.BABY_TRANSFORMER));
+		EntityRendererRegistry.register(BlockyBeaversEntities.BEAVER, BeaverEntityRenderer::new);
 	}
 }

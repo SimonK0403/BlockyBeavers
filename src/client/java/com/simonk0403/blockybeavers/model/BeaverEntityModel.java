@@ -1,20 +1,22 @@
 package com.simonk0403.blockybeavers.model;
 
-import com.simonk0403.blockybeavers.entity.BeaverEntity;
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.model.BabyModelTransformer;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
+import net.minecraft.client.render.entity.model.ModelTransformer;
 import net.minecraft.client.render.entity.model.QuadrupedEntityModel;
+import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.util.math.MathHelper;
 
-import java.util.List;
+import java.util.Set;
 
-public class BeaverEntityModel extends QuadrupedEntityModel<BeaverEntity> {
+public class BeaverEntityModel extends QuadrupedEntityModel<LivingEntityRenderState> {
+	public static final ModelTransformer BABY_TRANSFORMER = new BabyModelTransformer(false, 2.0F, 2.5F, Set.of(EntityModelPartNames.HEAD));
 	private final ModelPart tail;
-	private static final String TAIL_PART = "tail";
 
 	public BeaverEntityModel(ModelPart root) {
-		super(root, false, 2.0F, 2.5F, 2.0F, 2.0F, 24);
-		this.tail = root.getChild(TAIL_PART);
+		super(root);
+		this.tail = root.getChild(EntityModelPartNames.TAIL);
 	}
 
 	public static TexturedModelData getTexturedModelData() {
@@ -32,38 +34,31 @@ public class BeaverEntityModel extends QuadrupedEntityModel<BeaverEntity> {
 
 		modelPartData.addChild(EntityModelPartNames.LEFT_HIND_LEG, ModelPartBuilder.create().uv(0, 26).cuboid(-1.0F, -1.0F, -3.0F, 2.0F, 3.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(-4.0F, 22.0F, 4.0F));
 
-		modelPartData.addChild(TAIL_PART, ModelPartBuilder.create().uv(0, 16).cuboid(-2.0F, -1.0F, 0.0F, 4.0F, 2.0F, 8.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 22.0F, 5.0F));
+		modelPartData.addChild(EntityModelPartNames.TAIL, ModelPartBuilder.create().uv(0, 16).cuboid(-2.0F, -1.0F, 0.0F, 4.0F, 2.0F, 8.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 22.0F, 5.0F));
 
 		return TexturedModelData.of(modelData, 64, 64);
 	}
 
 	@Override
-	protected Iterable<ModelPart> getHeadParts() {
-		return List.of(this.head);
-	}
+	public void setAngles(LivingEntityRenderState livingEntityRenderState) {
+		this.head.pitch = livingEntityRenderState.pitch * (float) (Math.PI / 180.0);
+		this.head.yaw = livingEntityRenderState.yawDegrees * (float) (Math.PI / 180.0);
 
-	@Override
-	protected Iterable<ModelPart> getBodyParts() {
-		return List.of(this.body, this.rightHindLeg, this.leftHindLeg, this.rightFrontLeg, this.leftFrontLeg, this.tail);
-	}
+		float limbFrequency = livingEntityRenderState.limbFrequency;
+		float limbAmplitudeMultiplier = livingEntityRenderState.limbAmplitudeMultiplier;
 
-	@Override
-	public void setAngles(BeaverEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-		this.head.pitch = headPitch * (float) (Math.PI / 180.0);
-		this.head.yaw = headYaw * (float) (Math.PI / 180.0);
-
-		if(entity.isTouchingWater()){
-			this.rightHindLeg.pitch = MathHelper.cos(limbAngle * 4F) * 1.4F * limbDistance + 3F;
-			this.leftHindLeg.pitch = MathHelper.cos(limbAngle * 4F + (float) Math.PI) * 1.4F * limbDistance + 3F;
-			this.rightFrontLeg.pitch = MathHelper.cos(limbAngle * 4F) * 1.4F * limbDistance - 1.5F;
-			this.leftFrontLeg.pitch = MathHelper.cos(limbAngle * 4F + (float) Math.PI) * 1.4F * limbDistance - 1.5F;
-			this.tail.pitch = MathHelper.cos(limbAngle * 2F) * limbDistance;
+		if(livingEntityRenderState.touchingWater){
+			this.rightHindLeg.pitch = MathHelper.cos(limbFrequency * 4F) * 1.4F * limbAmplitudeMultiplier + 3F;
+			this.leftHindLeg.pitch = MathHelper.cos(limbFrequency * 4F + (float) Math.PI) * 1.4F * limbAmplitudeMultiplier + 3F;
+			this.rightFrontLeg.pitch = MathHelper.cos(limbFrequency * 4F) * 1.4F * limbAmplitudeMultiplier - 1.5F;
+			this.leftFrontLeg.pitch = MathHelper.cos(limbFrequency * 4F + (float) Math.PI) * 1.4F * limbAmplitudeMultiplier - 1.5F;
+			this.tail.pitch = MathHelper.cos(limbFrequency * 2F) * limbAmplitudeMultiplier;
 		} else {
-			this.rightHindLeg.pitch = MathHelper.cos(limbAngle * 1.5F) * 1.4F * limbDistance;
-			this.leftHindLeg.pitch = MathHelper.cos(limbAngle * 1.5F + (float) Math.PI) * 1.4F * limbDistance;
-			this.rightFrontLeg.pitch = MathHelper.cos(limbAngle * 1.5F) * 1.4F * limbDistance;
-			this.leftFrontLeg.pitch = MathHelper.cos(limbAngle * 1.5F + (float) Math.PI) * 1.4F * limbDistance;
-			this.tail.yaw = MathHelper.cos(limbAngle * 1.5F) * limbDistance;
+			this.rightHindLeg.pitch = MathHelper.cos(limbFrequency * 1.5F) * 1.4F * limbAmplitudeMultiplier;
+			this.leftHindLeg.pitch = MathHelper.cos(limbFrequency * 1.5F + (float) Math.PI) * 1.4F * limbAmplitudeMultiplier;
+			this.rightFrontLeg.pitch = MathHelper.cos(limbFrequency * 1.5F) * 1.4F * limbAmplitudeMultiplier;
+			this.leftFrontLeg.pitch = MathHelper.cos(limbFrequency * 1.5F + (float) Math.PI) * 1.4F * limbAmplitudeMultiplier;
+			this.tail.yaw = MathHelper.cos(limbFrequency * 1.5F) * limbAmplitudeMultiplier;
 		}
 	}
 }

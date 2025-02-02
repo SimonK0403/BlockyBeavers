@@ -8,35 +8,47 @@ import net.minecraft.item.Items;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
+
+import java.util.function.Function;
 
 public class BlockyBeaversItems {
     private BlockyBeaversItems() {}
 
     public static final Item BEAVER_SPAWN_EGG = register(
-            new SpawnEggItem(BlockyBeaversEntities.BEAVER, 0x502c1a, 0x141414, new Item.Settings()),
-            "beaver_spawn_egg"
+            "beaver_spawn_egg",
+            settings -> new SpawnEggItem(BlockyBeaversEntities.BEAVER, 0x502c1a, 0x141414, settings),
+            new Item.Settings()
     );
 
     public static final Item RAW_BEAVER = register(
-            new Item(new Item.Settings().food(new FoodComponent.Builder().nutrition(2).saturationModifier(0.3F).build())),
-            "raw_beaver"
+            "raw_beaver",
+            new Item.Settings().food(new FoodComponent.Builder().nutrition(2).saturationModifier(0.3F).build())
     );
 
     public static final Item COOKED_BEAVER = register(
-            new Item(new Item.Settings().food(new FoodComponent.Builder().nutrition(6).saturationModifier(0.6F).build())),
-            "cooked_beaver"
+            "cooked_beaver",
+            new Item.Settings().food(new FoodComponent.Builder().nutrition(6).saturationModifier(0.6F).build())
     );
 
     public static final Item BEAVER_FUR = register(
-            new Item(new Item.Settings()),
-            "beaver_fur"
+            "beaver_fur",
+            new Item.Settings()
     );
 
-    public static Item register(Item item, String id) {
-        Identifier itemId = Identifier.of(BlockyBeavers.MOD_ID, id);
+    private static RegistryKey<Item> keyOf(String id) {
+        return RegistryKey.of(RegistryKeys.ITEM, Identifier.of(BlockyBeavers.MOD_ID, id));
+    }
 
-        return Registry.register(Registries.ITEM, itemId, item);
+    public static Item register(String id, Item.Settings settings) {
+        return register(id, Item::new, settings);
+    }
+
+    public static Item register(String id, Function<Item.Settings, Item> factory, Item.Settings settings) {
+        Item item = factory.apply(settings.registryKey(keyOf(id)));
+        return Registry.register(Registries.ITEM, keyOf(id), item);
     }
 
     public static void initialize() {

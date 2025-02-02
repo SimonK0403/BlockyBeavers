@@ -5,6 +5,7 @@ plugins {
 
 version = project.mod_version
 group = project.maven_group
+def fileName = "${archives_base_name}-fabric-${minecraft_version}-${mod_version}"
 
 base {
 	archivesName = project.archives_base_name
@@ -70,7 +71,11 @@ jar {
 }
 
 remapJar {
-	archiveFileName = "${archives_base_name}-fabric-${minecraft_version}-${mod_version}.jar"
+	archiveFileName = "${fileName}.jar"
+}
+
+remapSourcesJar {
+	archiveFileName = "${fileName}-sources.jar"
 }
 
 // configure the maven publication
