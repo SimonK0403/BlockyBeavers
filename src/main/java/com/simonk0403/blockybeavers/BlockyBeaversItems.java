@@ -19,7 +19,7 @@ public class BlockyBeaversItems {
 
     public static final Item BEAVER_SPAWN_EGG = register(
             "beaver_spawn_egg",
-            settings -> new SpawnEggItem(BlockyBeaversEntities.BEAVER, 0x502c1a, 0x141414, settings),
+            settings -> new SpawnEggItem(BlockyBeaversEntities.BEAVER, settings),
             new Item.Settings()
     );
 
